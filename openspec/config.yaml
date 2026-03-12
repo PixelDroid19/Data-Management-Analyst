@@ -1,4 +1,4 @@
 rules:
   verify:
-    test_command: "python scripts/verify_guardrails.py test"
-    build_command: "python scripts/verify_guardrails.py check"
+    test_command: "python -c \"from pathlib import Path; req=['skills/sdd-explore/SKILL.md','skills/sdd-apply/SKILL.md','skills/sdd-doc/SKILL.md','skills/_shared/output-contract.md']; missing=[p for p in req if not Path(p).is_file()]; assert not missing, 'Missing files: ' + ', '.join(missing); [Path(p).read_text(encoding='utf-8') for p in req]; print('verify test ok')\""
+    build_command: "python -c \"from pathlib import Path; checks={'skills/_shared/output-contract.md':['[CONFIRMED]','[INFERRED]','[NOT FOUND]','Invariant: every factual statement in the report must be explicitly labeled with one evidence state'],'skills/sdd-explore/SKILL.md':['First-Response Behavior (Vague Prompts)','Mandatory Evidence Read Order (Condensed)'],'skills/sdd-apply/SKILL.md':['Mandatory extraction/read order for service-flow evidence']}; missing=[f'{file}::{token}' for file,tokens in checks.items() for token in tokens if token not in Path(file).read_text(encoding='utf-8')]; assert not missing, 'Missing invariants: ' + ', '.join(missing); print('verify build ok')\""

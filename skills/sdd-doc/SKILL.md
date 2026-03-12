@@ -172,6 +172,16 @@ Mermaid safety — defer to `sdd-design-doc-mermaid` for style, but always enfor
 - Do not add invented nodes, routes, services, channels, or payload fields to the diagram. If something remains inferred, label it as inferred in the surrounding text or legend instead of presenting it as settled fact.
 - Do not copy placeholder values from templates or examples into final docs.
 
+#### Compact flowchart guardrails (service-flow oriented)
+
+When adding a flowchart (in addition to sequence/class diagrams), keep it compact and technical:
+
+1. Model business/service orchestration, not UI decoration.
+2. Group by phases and keep each phase focused on service calls, decision gates, and data handoffs.
+3. Preserve explicit branches (happy path, error/technical) with condition labels copied from code when available.
+4. Include all discovered services in the narrative/table, even if some details stay `[NOT FOUND]`.
+5. Keep uncertain items out of asserted diagram facts; keep them in gaps with evidence status.
+
 ### Step 5: Persist developer-facing artifacts
 
 Save documentation inside the project without deleting existing ones:

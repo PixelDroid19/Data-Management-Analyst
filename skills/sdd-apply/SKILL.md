@@ -127,6 +127,29 @@ If the DM uses a single service with no chained calls, say so explicitly and doc
 
 If the service chain involves conditional branches (e.g., happy path calls service B, error path calls service C), document both branches.
 
+#### Mandatory extraction/read order for service-flow evidence
+
+Use this order for each analyzed flow phase. Do not skip ahead:
+
+1. **Phase entry and trigger**
+   - Read page entry method/lifecycle and UI handler that starts the phase.
+2. **Service invocation points**
+   - Read exact service call sites and capture method names as written.
+3. **Request construction**
+   - Trace payload/query/header assembly backward to source variables/channels.
+4. **Response handling**
+   - Read success/error handlers and extract response fields actually consumed.
+5. **Inter-service mapping**
+   - Map which response field from service N is reused in service N+1 input.
+6. **Branching and ramifications**
+   - Read explicit conditions (`if`/`switch`/guards) that alter the next service/page.
+7. **Channel and navigation continuation**
+   - Read `publish`/`subscribe`/`navigate` steps that carry the flow to the next phase.
+8. **Provider/endpoint confirmation**
+   - Confirm endpoint/provider/HTTP evidence in DM/BGDM/BGADP/provider layers when visible.
+
+If any sub-step cannot be confirmed, keep the phase in output with `[NOT FOUND]` for missing fields instead of omitting it.
+
 ### Step 5: Verify real usage in the app
 
 Search the app code for:

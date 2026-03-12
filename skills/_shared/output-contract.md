@@ -22,6 +22,8 @@ All major findings in the report must preserve their evidence status:
 
 Invariant: every factual statement in the report must be explicitly labeled with one evidence state. Unlabeled factual claims are invalid output.
 
+Invariant (service inventory completeness): all discovered services must be listed in the delivery even when some fields are `[NOT FOUND]`.
+
 This applies especially to:
 
 - entry point, route, and host page
@@ -222,6 +224,20 @@ Sources: [path:start-end]()
 - what remained pending, if applicable
 Sources: [path:start-end]()
 ```
+
+## Optional profile: flow-analysis section layout
+
+When the task is primarily service-orchestration analysis, this compact layout may be used as an optional profile without replacing required sections:
+
+1. Flow scope and entry evidence
+2. Journey chain (page/phase order)
+3. Service orchestration by phase
+4. Parameter propagation map (service-to-service)
+5. Branching/ramifications (happy path, error, technical)
+6. Channel bridge and downstream continuation
+7. Analysis gaps / not found
+
+This profile is additive and must still preserve evidence labels and mandatory closure rules.
 
 ## Readability rule
 

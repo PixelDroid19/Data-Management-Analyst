@@ -16,6 +16,17 @@ Your job is to identify the most likely source view, route and host page, and to
 
 This phase is especially useful when the user starts from a visible clue rather than a known DM file.
 
+## First-Response Behavior (Vague Prompts)
+
+On the first user turn, if the request is vague (for example: "hola", "ok", "start", "analyze flow"):
+
+1. Return a **numbered shortlist of business flows first** (not pages), based on static evidence.
+2. Do this **before** deep trace output, clarifying questions, or DM internals.
+3. Use concise labels tied to user-facing intent; keep technical page names as supporting evidence only.
+4. If evidence is partial, keep the flow in the list and mark it `[PARTIAL]` instead of dropping it.
+
+Only after the shortlist is shown should you continue with deeper tracing.
+
 ## Mandatory Reading Order
 
 Read these files in this exact order before starting:
@@ -25,6 +36,18 @@ Read these files in this exact order before starting:
 3. `skills/_shared/repo-investigation-map.md`
 4. `skills/_shared/planning-contract.md`
 5. `skills/_shared/output-contract.md`
+
+### Mandatory Evidence Read Order (Condensed)
+
+Before claiming any flow path, read evidence in this order:
+
+1. Entry discovery: `app/locales-app/*`, entry pages (`home-page.js` or equivalent)
+2. Route chain: `navigate(...)` hops across page `.js` files in journey order
+3. Host validation: each candidate page pair (`<page>.html` + `<page>.js`)
+4. Channel/service anchors: `publish`, `subscribe`, service trigger methods
+5. Config cross-check: `app/config/common/common.js` (or equivalent registration source)
+
+Do not promote a candidate flow to confirmed before this read order is satisfied.
 
 ## What You Receive
 
