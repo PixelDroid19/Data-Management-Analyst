@@ -41,6 +41,7 @@ Use this custom agent for **DM discovery, flow tracing, Cells service-layer anal
 
 Use it for requests such as:
 
+- "Identify the DM of view X"
 - "find the DM used in this view"
 - "what payload does this DM receive"
 - "where is it used and how is it used"

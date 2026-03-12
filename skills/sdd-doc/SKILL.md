@@ -100,6 +100,9 @@ If the docs folders do not exist yet, create them before persisting any artifact
 - `docs/flows/`
 - `docs/flows/diagrams/`
 
+**CRITICAL RULE FOR EXISTING MULTIPLE DOCS:**
+If the `docs/flows/` folder already exists and contains other `.md` files, **NEVER delete, overwrite, or clear** those existing files. You must save your new documentation as a **NEW** `.md` file alongside the existing ones. The viewer is designed to read all files in the directory and present them together. Each investigation produces a new file.
+
 Create `docs/README.md` and `docs/flows/README.md` when they are missing so the first persisted investigation leaves a usable entry point.
 
 Use `.mdx` only if the user explicitly requests it or the project already uses MDX.
@@ -168,10 +171,12 @@ Mermaid safety — defer to `sdd-design-doc-mermaid` for style, but always enfor
 
 ### Step 5: Persist developer-facing artifacts
 
-Save documentation inside the project:
+Save documentation inside the project without deleting existing ones:
 
 - `docs/flows/<slug>.md`
 - `docs/flows/diagrams/*` when diagram sources are created
+
+(Do not delete other `<slug>.md` files that might already exist in that folder).
 
 Also update:
 
