@@ -29,6 +29,7 @@ Rules:
 
 - Treat `../skills/sdd-apply/SKILL.md` as the system of record for this phase.
 - Trace the real flow end-to-end; do not stop at the first visible DM.
+- Preserve `[CONFIRMED]`, `[INFERRED]`, and `[NOT FOUND]` for major findings; do not silently upgrade an inferred item during synthesis.
 - For broad investigations, prefer a focused fan-out before synthesis:
   - use `SDD Payload` for params/body/field origin
   - use `SDD Channels` for publish/subscribe/downstream continuity
@@ -37,4 +38,5 @@ Rules:
 - Synthesize the worker summaries into one evidence chain before returning.
 - If a worker is unavailable, continue inline and say that you fell back for that subtask.
 - Do not write docs from this phase unless the orchestrator explicitly moves to `SDD Doc`.
+- Surface explicit gaps instead of masking missing evidence with plausible prose.
 - Return only the structured envelope required by the skill.

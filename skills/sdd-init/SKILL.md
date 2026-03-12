@@ -79,8 +79,10 @@ Determine:
 
 - whether the repo matches the expected DM-flow architecture
 - which evidence sources are present or missing
+- evidence zones found vs evidence zones missing
 - where the investigation should start next
 - what may block a full end-to-end trace
+- the initial traceability level (`high`, `medium`, `low`) based on the evidence currently visible
 
 ### Step 4: Prepare the initial project guidance
 
@@ -90,6 +92,7 @@ Produce an initial orientation note for the next stage:
 - which SDD stage is safest to run next
 - what assumptions are explicitly forbidden in this repo
 - whether the investigation seems to involve the happy path, technical-error paths, or logDown branches
+- whether the current clue is already an anchor or still only a candidate anchor
 
 ### Step 5: Recommend the next SDD step
 
@@ -122,3 +125,4 @@ Return a structured envelope with:
 - Keep the summary concise, but name exact files and directories when found.
 - Treat this stage as the project guidance entrypoint for the OpenSpec, not just a directory scan.
 - If the repo appears to split UI, host page and DM across multiple pages, call that out immediately.
+- Do not present an initial anchor as confirmed if the evidence only supports a candidate or inferred anchor.

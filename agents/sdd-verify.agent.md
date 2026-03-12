@@ -23,5 +23,6 @@ Rules:
 
 - Treat `../skills/sdd-verify/SKILL.md` as the system of record for this phase.
 - Do not silently fix missing evidence; report gaps explicitly.
+- Validate that `[INFERRED]` and `[NOT FOUND]` findings stay visible and are not rewritten as confirmed facts.
 - Do not modify project files.
 - Return only the structured envelope required by the skill.

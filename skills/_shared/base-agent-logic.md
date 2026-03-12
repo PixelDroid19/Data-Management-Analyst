@@ -45,6 +45,23 @@ Treat requests like these as full SDD investigations:
 
 **Never assume that the visible DM on the screen is the one performing the main operation.**
 
+## Grounding protocol
+
+Every significant claim must follow this sequence:
+
+1. **Read** the relevant file
+2. **Find** the exact method, tag, route, payload field, channel, or handler
+3. **Quote** the concrete evidence internally for validation
+4. **Claim** only what that evidence supports
+
+Preserve these evidence states when reporting major findings:
+
+- `[CONFIRMED]`
+- `[INFERRED]`
+- `[NOT FOUND]`
+
+Do not silently upgrade an inferred relationship to confirmed during synthesis.
+
 In these applications it is common that:
 
 - the first view only captures data with a UI component
@@ -106,7 +123,7 @@ When this chain is detected, the investigation must also document:
 Follow this order unless there is a strong, documented reason to deviate:
 
 1. Identify the user's entry clue.
-2. Resolve the real view or route.
+2. For broad prompts, build a candidate flow / anchor shortlist before selecting a single real view or route.
 3. Open the host page HTML and JS.
 4. Distinguish UI component, host page, DM, and support component.
 5. Classify component origin (package in `node_modules`, app-local code, or platform).
@@ -118,6 +135,18 @@ Follow this order unless there is a strong, documented reason to deviate:
 11. Trace the channels.
 12. Follow navigation and downstream pages to a verifiable end.
 13. Separate the happy path from technical-error and logDown branches.
+
+Maintain an evidence ledger for the core findings:
+
+- entry point / route
+- host page
+- UI component vs DM vs support component
+- principal DM / method
+- service call chain
+- payload field origin
+- channels
+- downstream continuation
+- happy path vs technical-error / `logDown`
 
 ## Procedimiento detallado
 
@@ -290,6 +319,10 @@ Every important finding must be backed by concrete evidence:
 - BGDM, BGADP, provider, and params when they exist with evidence
 - origin of each data field when demonstrable
 
+If a finding cannot be demonstrated directly but remains likely from surrounding evidence, mark it `[INFERRED]` and point back to the confirmed evidence that supports it.
+
+If the expected evidence was searched for and not located, mark it `[NOT FOUND]` and keep the trace honest.
+
 ## Quality rules
 
 - If the package exposes a method but the current flow does not use it, say so explicitly.
@@ -304,6 +337,7 @@ Every important finding must be backed by concrete evidence:
 - **Stay focused on the flow the user asked about.** Do not drift into tangential flows, unrelated DMs, or speculative connections.
 - Keep documentation clean and professional. Do NOT add source citations after every section — cite only at key evidence points.
 - Limit source files to the 3-6 that matter most. Do not pad with irrelevant files.
+- Do not place ungrounded routes, services, payload fields, or channels into Mermaid diagrams or persisted docs as if they were confirmed facts.
 
 ## Final operating rule
 

@@ -66,6 +66,12 @@ List the evidence that the investigation must prove:
 - distinction between happy path and technical-error/logDown path
 - whether any visible DM is actually auxiliary rather than the main DM
 
+Represent this as an evidence matrix whenever useful, with each major item marked as one of:
+
+- expected `[CONFIRMED]`
+- temporarily `[INFERRED]`
+- currently `[NOT FOUND]`
+
 ### Step 3: Delimit the scope
 
 State explicitly:
@@ -82,6 +88,7 @@ Call out anything the next skill must resolve, such as:
 - missing route map
 - payload fields whose origin is still unknown
 - unclear final page or missing consumer of a channel
+- candidate anchors that still need host-page confirmation
 
 ### Step 5: Define done criteria
 
@@ -106,3 +113,4 @@ Return a structured envelope with:
 - If the user asked for a full flow, do not scope it down to a single page unless you explain why.
 - A good spec must make later planning easier; if it cannot, it is still too vague.
 - If channels appear to be part of the contract, they are in scope by default.
+- The spec must state which conclusions are blocked until specific files or symbols are read.

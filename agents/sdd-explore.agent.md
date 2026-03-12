@@ -23,5 +23,6 @@ Rules:
 
 - Treat `../skills/sdd-explore/SKILL.md` as the system of record for this phase.
 - Produce an evidence-backed shortlist, not guesses.
+- For broad prompts, prefer a candidate shortlist over premature certainty, and preserve evidence labels on each anchor.
 - Do not modify project files.
 - Return only the structured envelope required by the skill.

@@ -1,8 +1,9 @@
-<!-- markdownlint-disable MD033 MD041 MD042 -->
+<!-- markdownlint-disable MD033 MD040 MD041 MD042 MD060 -->
 
 # [Nombre del DM / Título del Flujo]
 
 > Documentación técnica para desarrolladores. Foco: cadena de servicios, Data Manager, y lógica backend. Mantener conciso, profesional, y basado en evidencia de código. Minimizar detalles de UI visual.
+> **Leyenda de evidencia:** `[CONFIRMED]` = verificado directamente en código · `[INFERRED]` = deducido a partir de evidencia confirmada · `[NOT FOUND]` = buscado y no localizado
 
 [1-2 párrafos de introducción: alcance del flujo, qué DM lo procesa, qué datos maneja.]
 
@@ -17,19 +18,20 @@
 | Método principal        | [dm.method(params, body)]                  |
 | Lógica principal        | [Qué datos se transforman o procesan]      |
 | Estado                  | Verificado / Parcial                       |
+| Evidencia global        | [CONFIRMED / INFERRED / NOT FOUND]         |
 | Última actualización    | [YYYY-MM-DD]                               |
 
 ---
 
 ## 2. Origen de la vista
 
-| Campo                  | Evidencia                                   |
-|------------------------|---------------------------------------------|
-| Pantalla de entrada    | [nombre visible]                            |
-| Ruta interna           | [/route-name]                               |
-| Host page              | [app/pages/page/page.js L###]               |
-| Evento disparador      | [on-action-button → handler(detail)]        |
-| Navegación             | [navigate → /destination-route]             |
+| Campo                  | Evidencia                                   | Estado |
+|------------------------|---------------------------------------------|--------|
+| Pantalla de entrada    | [nombre visible]                            | [CONFIRMED/INFERRED/NOT FOUND] |
+| Ruta interna           | [/route-name]                               | [CONFIRMED/INFERRED/NOT FOUND] |
+| Host page              | [app/pages/page/page.js L###]               | [CONFIRMED/INFERRED/NOT FOUND] |
+| Evento disparador      | [on-action-button → handler(detail)]        | [CONFIRMED/INFERRED/NOT FOUND] |
+| Navegación             | [navigate → /destination-route]             | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ---
 
@@ -37,11 +39,11 @@
 
 En Cells, los componentes pueden venir de `node_modules`, del código local, o de la plataforma directa. Clasificar cada pieza:
 
-| Tag                    | Rol              | Origen              | Paquete / Ruta                         |
-|------------------------|------------------|----------------------|----------------------------------------|
-| [cells-co-*-ui]        | UI Component     | [node_modules]       | [@cvid-lit-component/...]              |
-| [cells-co-*-dm-lit]    | DM               | [node_modules]       | [@cvid-lit-component/...]              |
-| [host-page]            | Orquestador      | app-local            | [app/pages/.../page.js]                |
+| Tag                    | Rol              | Origen              | Paquete / Ruta                         | Estado |
+|------------------------|------------------|----------------------|----------------------------------------|--------|
+| [cells-co-*-ui]        | UI Component     | [node_modules]       | [@cvid-lit-component/...]              | [CONFIRMED/INFERRED/NOT FOUND] |
+| [cells-co-*-dm-lit]    | DM               | [node_modules]       | [@cvid-lit-component/...]              | [CONFIRMED/INFERRED/NOT FOUND] |
+| [host-page]            | Orquestador      | app-local            | [app/pages/.../page.js]                | [CONFIRMED/INFERRED/NOT FOUND] |
 
 > **Topología**: [Package-backed / App-local DM / App-only] — [justificación breve].
 
@@ -49,15 +51,15 @@ En Cells, los componentes pueden venir de `node_modules`, del código local, o d
 
 ## 4. Perfil técnico del DM
 
-| Aspecto                | Evidencia                                   |
-|------------------------|---------------------------------------------|
-| Custom element         | [tag-name]                                  |
-| Archivo fuente         | [path]                                      |
-| Versión                | [x.y.z]                                     |
-| Properties clave       | [propA, propB]                              |
-| Métodos públicos       | [method1(), method2()]                      |
-| Eventos emitidos       | [on-response-*, on-post-*]                  |
-| Dependencias           | [BGDM / BGADP / Provider]                  |
+| Aspecto                | Evidencia                                   | Estado |
+|------------------------|---------------------------------------------|--------|
+| Custom element         | [tag-name]                                  | [CONFIRMED/INFERRED/NOT FOUND] |
+| Archivo fuente         | [path]                                      | [CONFIRMED/INFERRED/NOT FOUND] |
+| Versión                | [x.y.z]                                     | [CONFIRMED/INFERRED/NOT FOUND] |
+| Properties clave       | [propA, propB]                              | [CONFIRMED/INFERRED/NOT FOUND] |
+| Métodos públicos       | [method1(), method2()]                      | [CONFIRMED/INFERRED/NOT FOUND] |
+| Eventos emitidos       | [on-response-*, on-post-*]                  | [CONFIRMED/INFERRED/NOT FOUND] |
+| Dependencias           | [BGDM / BGADP / Provider]                  | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ### Métodos y datos
 
@@ -83,10 +85,10 @@ classDiagram
 
 ### Orden y mapeo de parámetros
 
-| #  | Servicio / Endpoint        | Método | Request params clave                  | Response usada downstream              |
-|----|---------------------------|--------|---------------------------------------|-----------------------------------------|
-| 1  | [/api/endpoint]           | [POST] | [param1, param2]                      | [responseField1, responseField2]        |
-| 2  | [/api/endpoint/{id}]      | [GET]  | [responseField1 ← del paso 1]        | [field3, field4]                        |
+| #  | Servicio / Endpoint        | Método | Request params clave                  | Response usada downstream              | Estado |
+|----|---------------------------|--------|---------------------------------------|-----------------------------------------|--------|
+| 1  | [/api/endpoint]           | [POST] | [param1, param2]                      | [responseField1, responseField2]        | [CONFIRMED/INFERRED/NOT FOUND] |
+| 2  | [/api/endpoint/{id}]      | [GET]  | [responseField1 ← del paso 1]        | [field3, field4]                        | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ### Flujo de parámetros entre servicios
 
@@ -112,15 +114,15 @@ sequenceDiagram
 
 ### Request (entrada)
 
-| Campo    | Tipo         | Origen                    | Requerido |
-|----------|--------------|---------------------------|-----------|
-| [campo]  | [tipo]       | [canal / formulario / DM] | sí / no   |
+| Campo    | Tipo         | Origen                    | Requerido | Estado |
+|----------|--------------|---------------------------|-----------|--------|
+| [campo]  | [tipo]       | [canal / formulario / DM] | sí / no   | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ### Response (salida)
 
-| Campo    | Tipo         | Destino                   |
-|----------|--------------|---------------------------|
-| [campo]  | [tipo]       | [canal / navegación / UI] |
+| Campo    | Tipo         | Destino                   | Estado |
+|----------|--------------|---------------------------|--------|
+| [campo]  | [tipo]       | [canal / navegación / UI] | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ---
 
@@ -128,15 +130,15 @@ sequenceDiagram
 
 ### Consumidos (entrada)
 
-| Canal                  | Datos leídos              | Uso en el DM                          |
-|------------------------|---------------------------|---------------------------------------|
-| [canal]                | [{ field1, field2 }]      | [asignado a prop X]                   |
+| Canal                  | Datos leídos              | Uso en el DM                          | Estado |
+|------------------------|---------------------------|---------------------------------------|--------|
+| [canal]                | [{ field1, field2 }]      | [asignado a prop X]                   | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ### Publicados (salida)
 
-| Canal                  | Payload                   | Cuándo se publica                     |
-|------------------------|---------------------------|---------------------------------------|
-| [canal]                | [{ field1, field2 }]      | [tras éxito / al navegar]             |
+| Canal                  | Payload                   | Cuándo se publica                     | Estado |
+|------------------------|---------------------------|---------------------------------------|--------|
+| [canal]                | [{ field1, field2 }]      | [tras éxito / al navegar]             | [CONFIRMED/INFERRED/NOT FOUND] |
 
 ---
 
@@ -189,5 +191,6 @@ sequenceDiagram
 
 - [rama que no quedó clara]
 - [mapeo de API sin evidencia]
+- [elemento rastreado pero no encontrado en código]
 
 <!-- markdownlint-enable MD033 MD041 MD042 -->

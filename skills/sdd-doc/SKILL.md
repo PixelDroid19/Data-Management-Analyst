@@ -128,6 +128,7 @@ Authoring pattern — wiki-style, professional, readable:
 - Prefer summary tables over long prose for components, payload fields, or downstream branches.
 - **Do NOT add source citations after every single section.** Only cite sources inline when the evidence is critical or non-obvious. The document should read cleanly, not be cluttered with references.
 - Use the citation format `Sources: [path:start-end]()` only at key evidence points — not at every heading.
+- Preserve evidence honesty inside the doc: important findings should remain visibly `[CONFIRMED]`, `[INFERRED]`, or `[NOT FOUND]` when that distinction matters.
 
 The document must explain:
 
@@ -168,6 +169,8 @@ Mermaid safety — defer to `sdd-design-doc-mermaid` for style, but always enfor
 - Declare all participants first in sequence diagrams
 - Prefer `classDiagram` for DM internals
 - If a diagram is likely invalid or overloaded, simplify rather than ship broken Mermaid
+- Do not add invented nodes, routes, services, channels, or payload fields to the diagram. If something remains inferred, label it as inferred in the surrounding text or legend instead of presenting it as settled fact.
+- Do not copy placeholder values from templates or examples into final docs.
 
 ### Step 5: Persist developer-facing artifacts
 
@@ -226,6 +229,7 @@ If any part of the flow is unresolved:
 - mark it explicitly
 - keep it inside a gaps/open-questions section
 - never present it as verified fact
+- do not silently upgrade `[INFERRED]` to `[CONFIRMED]` during editing polish or diagram cleanup
 
 ## Return Format
 
@@ -255,3 +259,4 @@ Return a structured envelope with:
 - When persisting docs, verify the generated web artifacts and include them in the returned `artifacts` list.
 - Keep source citations minimal and relevant. Do not clutter the document with a citation after every heading — cite only at key evidence points.
 - **Stay focused on the flow the user asked about.** Do not drift into tangential flows or unrelated DMs.
+- Preserve explicit gaps and evidence states when the investigation remains partial.

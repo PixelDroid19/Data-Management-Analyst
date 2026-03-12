@@ -41,8 +41,9 @@ Goal: resolve the initial clue to a candidate view, route, or host page.
 
 Expected delivery:
 
-- shortlist of candidate pages
+- shortlist of candidate pages or candidate flows
 - first verifiable evidence chain
+- explicit note when the result is still `[INFERRED]` or `[NOT FOUND]`
 
 ### 3. Scope specification
 
@@ -110,12 +111,26 @@ Every task must be:
 - executable in a single pass
 - placed in the correct order
 
+Every task must also state:
+
+- **Read first** — the file(s), symbol(s), or evidence source that must be inspected before any claim
+- **Search for** — the concrete token, method, channel, route, or payload field expected
+- **Claim only if found** — the conclusion allowed when the evidence appears
+- **If absent** — whether to mark `[NOT FOUND]`, branch to another task, or stop the trace at that point
+
+## Read-before-claim gate
+
+Planning is incomplete if it lets a later phase conclude without reading the files that prove the conclusion.
+
+For broad or ambiguous prompts, the plan must first include a candidate-flow or candidate-anchor detection step before it assigns a single definitive path.
+
 ## Minimum sequence that must not be broken
 
 - Do not study package internals before confirming the host page.
 - Do not accept a payload before reviewing setters, getters, helpers, and transforms.
 - Do not close a flow before following channels and downstream pages.
 - Do not close without documenting the service call chain (order, responses, param mapping).
+- Do not convert a candidate or partial anchor into a confirmed one until the host page and evidence chain have been read.
 - Do not assume the first DM found is the principal one.
 - Do not treat a logDown DM as if it were the principal DM of the happy path.
 - Do not limit the answer to theoretical package capabilities when real app usage says otherwise.

@@ -51,6 +51,8 @@ Use the clue to search, in order:
 
 If those areas do not exist, search their functional equivalents.
 
+For broad prompts, do not collapse immediately to a single answer. Build a numbered shortlist of candidate flows or candidate anchors first, then narrow only when the host-page evidence supports it.
+
 ### Step 2: Inspect the host page pair
 
 Once you find a candidate page, inspect both:
@@ -76,6 +78,7 @@ For each serious candidate, report:
 - main visible component
 - first event/handler pair found
 - first navigation or channel hop found
+- evidence status for the candidate (`[CONFIRMED]`, `[INFERRED]`, or `[NOT FOUND]`)
 
 ### Step 4: Recommend how to continue
 
@@ -105,3 +108,4 @@ Return a structured envelope with:
 - This stage should leave the next stage with a concrete entry anchor, not just a list of guesses.
 - If the page only captures data and forwards via channels, say so instead of overstating its role.
 - Do not execute the application to discover routes or flows; infer them only from static evidence.
+- Do not silently upgrade a candidate anchor to confirmed unless the host-page evidence chain has been read.

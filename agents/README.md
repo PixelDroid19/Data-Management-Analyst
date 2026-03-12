@@ -7,7 +7,7 @@ This folder contains the SDD coordinator and its worker subagents.
 For broad DM-tracing requests, the normal flow is:
 
 0. Optional: `Plan` when the trace is ambiguous or high-risk
-1. `SDD Explore`
+1. `SDD Explore` (candidate shortlist first when the clue is broad)
 2. `SDD Payload` + `SDD Channels` + `SDD Usage` in parallel when independent
 3. `SDD Apply`
 4. `SDD Verify`
@@ -32,8 +32,19 @@ Use the `SDD Orchestrator` agent and send a prompt like this:
 - A collapsible subagent call for `SDD Explore`
 - Additional focused worker calls for payload, channels, or usage when the request is broad enough
 - A final persistence step that generates `docs/flows/` and, by default, `docs/site/`
+- Evidence labels or explicit status handling for key findings (`[CONFIRMED]`, `[INFERRED]`, `[NOT FOUND]`) when the flow is partial or ambiguous
+- Explicit gaps instead of smoothed-over certainty when evidence is missing
+- Grounded docs and diagrams that do not invent routes, channels, payloads, or services
+- No silent evidence-state promotion during synthesis (`[NOT FOUND]`/`[INFERRED]` must not become `[CONFIRMED]` without new direct evidence)
 - The final answer should mention which workers were used
 - If subagent delegation is unavailable, the answer should explicitly say it fell back to inline execution
+
+## Quick evidence smoke checks
+
+- Every major factual claim is labeled as `[CONFIRMED]`, `[INFERRED]`, or `[NOT FOUND]`.
+- Every `[CONFIRMED]` claim includes file:line evidence.
+- Unresolved downstream items remain explicit in an Analysis Gaps section.
+- Diagrams avoid presenting unresolved `[NOT FOUND]` items as confirmed facts.
 
 ## If the agents do not appear
 

@@ -46,6 +46,7 @@ For every major claim, verify that the report identifies:
 - file path
 - symbol, tag, event, method or channel name
 - relationship between source and destination when applicable
+- evidence status where the claim is not plainly confirmed (`[CONFIRMED]`, `[INFERRED]`, `[NOT FOUND]`)
 
 ### Step 3: Validate trace completeness
 
@@ -79,6 +80,14 @@ Check for these common mistakes:
 ### Step 5: Validate planning coherence
 
 Check that the report did not skip critical stages that the OpenSpec requires, even if the final text sounds convincing.
+
+### Step 5.5: Validate evidence honesty in docs and diagrams
+
+Check that:
+
+- inferred items were not silently rewritten as confirmed facts
+- unresolved items are surfaced in gaps instead of buried
+- diagrams do not contain ungrounded routes, services, channels, or payload fields as authoritative nodes
 
 ### Step 6: Return the verdict
 
@@ -120,3 +129,4 @@ Return a structured envelope with:
 - A clean verification should confirm both evidence quality and compliance with the shared OpenSpec.
 - If the report cannot say where the flow ends, it must explicitly fail or pass with gaps.
 - Do not generate repository docs silently from this phase; hand off to `sdd-doc`.
+- Verification must fail or downgrade the verdict when `[INFERRED]` items are presented as `[CONFIRMED]` without supporting evidence.

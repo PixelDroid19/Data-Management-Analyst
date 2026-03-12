@@ -29,6 +29,47 @@ Here, **OpenSpec** means a shared operating framework for:
 
 All `sdd-*` phases must read this file **first**.
 
+## Grounding protocol and evidence states
+
+Every major claim in an SDD investigation must follow this sequence:
+
+1. **Read** the relevant file or evidence source
+2. **Find** the exact token, handler, route, payload field, channel, or method
+3. **Quote** the concrete evidence internally when validating the claim
+4. **Claim** only what the evidence supports
+
+### Deterministic evidence order (mandatory)
+
+All phases must enforce the same execution order before synthesis:
+
+1. Read the relevant files/endpoints of evidence.
+2. Find exact tokens for route/handler/method/payload/channel claims.
+3. Quote concrete tokens internally (verbatim).
+4. Emit claims with evidence states and references.
+
+Do not synthesize or summarize claims before finishing the read/find/quote steps for the active phase.
+
+This repository uses these evidence states across all phases:
+
+- `[CONFIRMED]` — exact token or relationship read directly from source
+- `[INFERRED]` — deduction supported by surrounding confirmed evidence, but not read as a direct token end-to-end
+- `[NOT FOUND]` — searched explicitly, but the expected evidence was not located
+
+At minimum, these states must be preserved for high-impact findings such as:
+
+- entry point or host page
+- route or navigation hop
+- principal DM or service method
+- payload fields and their origin
+- publish/subscribe channels
+- downstream pages or technical-error / `logDown` continuations
+
+Invariant: no unlabeled factual claims. Every factual statement must carry `[CONFIRMED]`, `[INFERRED]`, or `[NOT FOUND]`.
+
+If evidence is missing, the correct behavior is to mark the gap explicitly — not to smooth it over with plausible wording.
+
+When evidence is missing after explicit search, unresolved items must remain visible in the final output as `[NOT FOUND]`.
+
 ## Functional goal
 
 The goal is to reconstruct **the entire real circuit** whenever the evidence allows it:
@@ -85,6 +126,7 @@ The AI must always follow this cycle:
    - `sdd-tasks` to create the operational plan
    - `sdd-apply` to execute the end-to-end trace
    - `sdd-verify` to validate coverage and consistency
+   - for broad or ambiguous prompts, start with candidate flow / scope detection before committing to a single trace
 4. **Plan before concluding**
    - if context is missing, profile or explore
    - if focus is missing, specify
@@ -105,6 +147,7 @@ The AI must always follow this cycle:
 - Detailed repository guidance lives in `_shared`; agents only orchestrate.
 - Persisted documentation for other developers lives in `docs/`, not in OpenSpec.
 - **Stay focused on the flow the user asked about.** Do not drift into tangential flows or unrelated DMs.
+- Diagrams and persisted docs may include only grounded entities and edges. If an item is inferred, mark it as inferred. If it was not found, keep it in gaps instead of drawing it as fact.
 
 ## Mandatory closing chain
 
@@ -144,6 +187,8 @@ Never assume that:
 - every local component is only UI
 - if a package exists, that package drives the main flow
 
+When the user prompt is broad enough that multiple flows or entry anchors are possible, the AI must first return an evidence-backed shortlist of candidates rather than prematurely selecting one as final truth.
+
 ## Planning rules
 
 Every investigation must be able to answer these questions before it can be considered closed:
@@ -164,6 +209,10 @@ Every investigation must be able to answer these questions before it can be cons
 ## Golden rule
 
 **Do not assume. Do not infer from names. Do not close without evidence.**
+
+Do not silently upgrade `[INFERRED]` to `[CONFIRMED]` during synthesis, verification, diagrams, or persisted docs.
+
+Do not silently upgrade `[NOT FOUND]` to `[INFERRED]` unless there is explicit new supporting evidence and the rationale is stated.
 
 If the flow remains incomplete, the correct output is not improvisation. It is to state the exact cutoff point and the missing evidence.
 

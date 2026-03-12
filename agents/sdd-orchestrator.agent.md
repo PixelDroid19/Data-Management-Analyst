@@ -66,6 +66,8 @@ Use it for requests such as:
 2. You MUST use your search tools, or the `agent` tool with the SDD worker agents, to actually check `app/pages/*`, components, or DM files in the project.
 3. If you simply output a generated `docs/flows/*.md` file without previously invoking the appropriate SDD worker agents or without gathering evidence from the codebase, you are violating the SDD directive.
 4. Iterate logically: Call the Explore subagent to find the entry point. Wait for its answer. Then trace the DM. Wait for the answer. Then, and only then, create the docs.
+5. Preserve evidence states across the chain: `[CONFIRMED]`, `[INFERRED]`, and `[NOT FOUND]`. Never silently upgrade an inferred item into a confirmed fact during synthesis.
+6. For broad or ambiguous prompts, resolve candidate flows or candidate entry anchors first. Do not prematurely collapse them into a single final trace.
 
 ## Subagent Delegation
 
@@ -82,7 +84,7 @@ Use a coordinator-and-worker pattern. Do not rely on generic unnamed subagents w
 Parallel research pattern for broad DM requests:
 
 - When the user asks in one bundle for flow + payload + what the DM receives + usages + origin of the view, do not treat it as a single monolithic lookup.
-- Resolve the entry anchor first with `SDD Explore`.
+- Resolve the entry anchor first with `SDD Explore`. If the clue is still broad, expect `SDD Explore` to return a candidate shortlist before committing to one anchor.
 - Then prefer a fan-out/fan-in pattern:
   - `SDD Payload` for params, body, helper builders, and field origin.
   - `SDD Channels` for publish/subscribe/navigation/downstream continuity.
@@ -99,6 +101,14 @@ Delegation rules:
 5. When a worker returns, synthesize its result before launching the next dependent worker so the chain stays evidence-based.
 6. If worker delegation is unavailable for any reason, continue inline using the exact same phase logic and explicitly say that you fell back to inline execution.
 7. Briefly mention which workers were used in the final answer so the user can confirm the orchestration actually happened.
+8. Final synthesis, docs, and diagrams must preserve the evidence state of major findings and surface explicit gaps instead of masking them.
+
+## Evidence-State Preservation Contract (Worker → Orchestrator)
+
+- The orchestrator must preserve worker evidence labels as-is for each claim.
+- If multiple workers disagree on confidence, keep the most conservative state unless new direct evidence is cited.
+- Prohibited promotion without evidence: `[NOT FOUND]` → `[INFERRED]` and `[INFERRED]` → `[CONFIRMED]`.
+- If synthesis merges claims, keep explicit provenance so final labels remain auditable.
 
 ## Planning and Memory
 
@@ -164,6 +174,8 @@ Each completed phase should return:
 - `artifacts`
 - `next_recommended`
 - `risks`
+
+When applicable, the report should also make clear which core findings are `[CONFIRMED]`, `[INFERRED]`, or `[NOT FOUND]`.
 
 ## Suggest this workflow when
 

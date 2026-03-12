@@ -1,0 +1,4 @@
+rules:
+  verify:
+    test_command: "python scripts/verify_guardrails.py test"
+    build_command: "python scripts/verify_guardrails.py check"

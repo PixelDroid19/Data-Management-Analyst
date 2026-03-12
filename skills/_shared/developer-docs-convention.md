@@ -149,6 +149,24 @@ Mandatory authoring pattern:
 5. Prefer tables and compact bullet lists over long paragraphs.
 6. **Do NOT add source citations after every single section.** Only cite sources inline when the evidence is critical or non-obvious. The document should read cleanly, not be cluttered with references.
 
+## Evidence legend
+
+Persisted docs should make uncertainty visible without becoming noisy.
+
+Use these evidence labels where they clarify important findings:
+
+- `[CONFIRMED]` — directly read from source
+- `[INFERRED]` — supported by confirmed evidence, but not read end-to-end as a direct token
+- `[NOT FOUND]` — searched for explicitly and not found
+
+Recommended usage:
+
+- a small legend near the top of the document
+- status columns in key tables
+- inline labels for disputed or partial findings
+
+Do not label every trivial sentence. Preserve the labels where they matter most: routes, host pages, DM methods, payload fields, channels, service-call steps, downstream destinations, and important branch outcomes.
+
 Do not dump entire investigation notes verbatim into the final document.
 
 The final doc should help a developer answer the question quickly, then drill deeper section by section.
@@ -209,6 +227,8 @@ The documentation must come from validated evidence, not inference.
 - Do not invent channels.
 - Do not promote an auxiliary DM to the principal DM.
 - If evidence is missing, leave an explicit gaps section.
+- Do not silently rewrite `[INFERRED]` findings as `[CONFIRMED]` during final prose cleanup.
+- Do not place `[NOT FOUND]` items into diagrams as if they were real nodes or edges.
 
 ## Integration with `sdd-design-doc-mermaid`
 

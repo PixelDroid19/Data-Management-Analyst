@@ -62,6 +62,13 @@ Each task must be:
 
 Each task should also mention the evidence expected on completion.
 
+Each task must additionally include:
+
+- **Read first**
+- **Search for**
+- **Claim only if found**
+- **If absent, mark** `[NOT FOUND]` **or branch**
+
 ### Step 3: Preserve dependency order
 
 Tasks must respect the natural sequence:
@@ -80,7 +87,15 @@ Organize the task list so `sdd-apply` can execute it in order without redesignin
 ```markdown
 ## Phase 1: Entry discovery
 - [ ] Search localized texts and page matches for the user clue.
+  - Read first: `app/locales-app/*`, candidate entry pages
+  - Search for: visible text, route aliases, card labels
+  - Claim only if found: candidate entry anchor
+  - If absent, mark: `[NOT FOUND]` and move to equivalent evidence zones
 - [ ] Resolve the internal route in `app/config/common/common.js`.
+  - Read first: route config and matching host page files
+  - Search for: route key, page key, navigation mapping
+  - Claim only if found: confirmed route/host-page pair
+  - If absent, mark: `[NOT FOUND]` and keep anchor as inferred
 
 ## Phase 2: Host page analysis
 - [ ] Read the host page HTML and classify visible UI vs DM tags.
@@ -111,3 +126,4 @@ Return a structured envelope with:
 - Prefer tasks that can be executed directly by `sdd-apply`.
 - If the checklist is not executable as written, rewrite it until it is.
 - If the user asked "how far does the flow go", include explicit downstream-closure tasks.
+- Do not create a task that allows a conclusion before the proving files are read.
