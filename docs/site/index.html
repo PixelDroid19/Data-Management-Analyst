@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flow Docs Hub</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <header class="sidebar-header">
+          <h1>Flow Docs</h1>
+          <p>Documentación técnica</p>
+        </header>
+        <div class="search-box">
+          <input type="search" id="search-input" placeholder="Buscar..." />
+        </div>
+        <nav id="doc-nav" aria-label="Documentation index"></nav>
+      </aside>
+
+      <main class="content-area">
+        <header class="content-header">
+          <h2 id="doc-title">Loading...</h2>
+          <div id="doc-meta" class="meta-info"></div>
+        </header>
+        
+        <div id="status" class="status-msg"></div>
+        <article id="doc-content" class="markdown-body"></article>
+      </main>
+    </div>
+  </body>
+</html>
